@@ -23,14 +23,18 @@
     "gpu"
   ],
   "exports": {
-    ".": "./src/index.ts",
-    "./tui": "./src/tui.tsx"
+    ".": "./dist/index.js",
+    "./tui": "./dist/tui.js"
   },
   "files": [
+    "dist",
     "src",
     "README.md",
     "LICENSE"
   ],
+  "scripts": {
+    "build": "bun build src/index.ts src/tui.tsx --outdir dist --target node --format esm --packages external --production"
+  },
   "dependencies": {
     "@opencode/plugin": "latest"
   },

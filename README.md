@@ -61,6 +61,18 @@ cp src/*.ts src/*.tsx ~/.config/opencode/plugins/system-monitor/
 OpenCode discovers `plugins/<name>/` directories and falls back to `index.ts` / `tui.tsx`
 when there is no `package.json`.
 
+## Development
+
+The published package ships prebuilt `dist/` bundles, so installing needs no build step.
+To rebuild after editing `src/`:
+
+```bash
+bun run build
+```
+
+`src/tui.tsx` carries a `/** @jsxImportSource @opentui/solid */` pragma and `tsconfig.json`
+sets the same — without it the JSX compiles against React, which OpenCode does not ship.
+
 ## License
 
 MIT
