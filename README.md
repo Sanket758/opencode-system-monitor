@@ -67,11 +67,19 @@ The published package ships prebuilt `dist/` bundles, so installing needs no bui
 To rebuild after editing `src/`:
 
 ```bash
-bun run build
+bun build src/index.ts src/tui.tsx \
+  --outdir dist --target node --format esm --packages external --production
 ```
 
-`src/tui.tsx` carries a `/** @jsxImportSource @opentui/solid */` pragma and `tsconfig.json`
-sets the same — without it the JSX compiles against React, which OpenCode does not ship.
+`--production` is required: without it Bun emits `jsx-dev-runtime`, and only the production
+build is what OpenCode's loader expects. The same goes for the `/** @jsxImportSource @opentui/solid */`
+pragma in `src/tui.tsx` and `jsxImportSource` in `tsconfig.json` — without them the JSX compiles
+against React, which OpenCode does not ship.
+
+> **No `scripts` field, on purpose.** OpenCode's installer prepares git dependencies by spawning
+> its own binary as `npm-cli.js`, which fails (`Unrecognized flag: --force in command opencode`)
+> whenever that preparation step runs. Adding a `scripts` entry to this `package.json` makes
+> `opencode plugin add` fail, so the build command lives here instead of in a script.
 
 ## License
 

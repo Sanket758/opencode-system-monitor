@@ -32,9 +32,6 @@
     "README.md",
     "LICENSE"
   ],
-  "scripts": {
-    "build": "bun build src/index.ts src/tui.tsx --outdir dist --target node --format esm --packages external --production"
-  },
   "dependencies": {
     "@opencode/plugin": "latest"
   },
